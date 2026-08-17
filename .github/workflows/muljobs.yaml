@@ -6,11 +6,11 @@ jobs:
     steps:
       - name: Buld the App
         run: echo "App bnn raha hai"
-  Test: 
-  runs-on: ubuntu-latest
-  steps:
-    - name: Testing
-      run: echo "Test ho raha hai app"
+  Test: null
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testing
+        run: echo "Test ho raha hai app"
   Deploy:
     runs-on: ubuntu-latest
     steps:
