@@ -1,18 +1,18 @@
 name: Multiple jobs
-on: workflow_dispatch
-jobs: 
-  buld: 
-   runs-on: ubuntu-latest
-   steps:
-    - name: Buld the App
-      run: echo "App bnn raha hai"
-  Test:
+'on': workflow_dispatch
+jobs:
+  buld:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Buld the App
+        run: echo "App bnn raha hai"
+  Test: 
   runs-on: ubuntu-latest
-  steps: 
-   - name: Testing
-     run: echo "Test ho raha hai app"
+  steps:
+    - name: Testing
+      run: echo "Test ho raha hai app"
   Deploy:
-   runs-on: ubuntu-latest
-   steps:
-     - name: Deploy the app
-       run: echo "app deply ho raha raha"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy the app
+        run: echo "app deply ho raha raha"
