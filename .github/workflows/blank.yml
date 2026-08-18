@@ -8,4 +8,4 @@ jobs:
         run: | 
          echo "Welcome to github actions"
          echo "too kaise lag raha hai aapko"
-         echo "yeh to aapko hi pata hoga"
+        
