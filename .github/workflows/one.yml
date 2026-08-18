@@ -3,7 +3,7 @@ on: workflow_dispatch
 jobs:
    build:
     runs-on: ubuntu-latest
-   steps:
+    steps:
      - name: Build an App
        run: echo "Bulding"
        
@@ -15,8 +15,8 @@ jobs:
        run: echo "testing"
        
    deploy:
-    runs-on: ubuntu-latest
-    needs: test
+     runs-on: ubuntu-latest
+     needs: test
      steps: 
      - name: Deploy the app
        run: echo "Deployment"
