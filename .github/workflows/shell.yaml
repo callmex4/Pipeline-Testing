@@ -1,0 +1,10 @@
+name: Multi Shell
+on: workflow_dispatch
+jobs:
+multi:
+runs-on: ubuntu-latest
+steps:
+ - name: Multiple lines
+run: |
+      echo "bada mushkil hai"
+      echo "pr hum krke dekhaengai" 
