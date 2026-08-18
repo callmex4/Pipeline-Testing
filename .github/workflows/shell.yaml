@@ -7,4 +7,4 @@ jobs:
       - name: Multiple lines
         run: |
           echo "bada mushkil hai"
-          echo "pr hum krke dekhaengai" 
+          echo "pr hum krke dekhaengai"
