@@ -5,7 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: hello step
-        run: | 
-         echo "Welcome to github actions"
-         echo "too kaise lag raha hai aapko"
+        run:  echo "Welcome to github actions, my Password is ${{ secrets.DOCKER_PASSWORD}}"
         
