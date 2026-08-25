@@ -1,0 +1,10 @@
+name: Jaadu
+on: worflow_dispatch
+jobs:
+  web:
+  runs-on: ubuntu-latest
+   steps:
+   - name: Checkout the code
+     uses: actions/checkout@v4
+   - name: Print the web
+     run: cat index.html
