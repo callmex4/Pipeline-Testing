@@ -1,5 +1,5 @@
 name: Jaadu
-on: worflow_dispatch
+on: workflow_dispatch
 jobs:
   web:
     runs-on: ubuntu-latest
