@@ -1,9 +1,0 @@
-name: First
-on: push
-jobs:
-  hello:
-    runs-on: ubuntu-latest
-    steps:
-      - name: hello step
-        run:  echo "Welcome to github actions, my Password is ${{ secrets.DOCKER_PASSWORD}}"
-        
