@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucine Coffee — Beautifully Brewed</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  :root{
+    --espresso:#2B1B14;
+    --espresso-deep:#1E120C;
+    --parchment:#F3E9DC;
+    --gold:#C79A3E;
+    --teal:#1F5C52;
+    --clay:#A65635;
+    --ink:#3A2A20;
+    --cream-text:#F2E6D8;
+    --smoke:#B8A99A;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background-color:var(--parchment);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    overflow-x:hidden;
+  }
+
+  .display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+  }
+  .display-italic{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+  }
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.03em;
+  }
+
+  a{color:var(--teal); text-decoration:none;} 
+
+  /* ---------- NAV ---------- */
+  .navbar{
+    background:rgba(30,18,12,0.94);
+    backdrop-filter:blur(6px);
+  }
+  .navbar-brand{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.7rem;
+    color:var(--cream-text) !important;
+  }
+  .navbar-brand span{color:var(--gold);}
+  .nav-link{
+    color:var(--smoke) !important;
+    font-size:0.85rem;
+    letter-spacing:0.06em;
+    margin-left:1.4rem;
+    transition:color .2s;
+  }
+  .nav-link:hover{color:var(--cream-text) !important;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--espresso);
+    color:var(--cream-text);
+    padding:9rem 0 6rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    top:0; right:0;
+    width:45%; height:100%;
+    background:radial-gradient(circle at 70% 30%, rgba(199,154,62,0.14), transparent 60%);
+    pointer-events:none;
+  }
+  .eyebrow{
+    color:var(--gold);
+    font-size:0.8rem;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    margin-bottom:1.2rem;
+  }
+  .hero h1{
+    font-size:clamp(3rem, 6.5vw, 5rem);
+    line-height:1.04;
+    margin-bottom:1.6rem;
+  }
+  .hero p.lead-copy{
+    color:var(--smoke);
+    font-size:1.15rem;
+    max-width:28rem;
+    margin-bottom:2.2rem;
+  }
+  .btn-gold{
+    background:var(--gold);
+    border:none;
+    color:var(--espresso-deep);
+    font-weight:500;
+    padding:0.8rem 1.9rem;
+    border-radius:2px;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .btn-gold:hover{
+    background:#d6ab52;
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(199,154,62,0.25);
+    color:var(--espresso-deep);
+  }
+  .btn-line{
+    border:1px solid rgba(242,230,216,0.35);
+    color:var(--cream-text);
+    padding:0.8rem 1.7rem;
+    border-radius:2px;
+    background:transparent;
+    transition:border-color .2s, background .2s;
+  }
+  .btn-line:hover{
+    border-color:var(--cream-text);
+    background:rgba(242,230,216,0.06);
+    color:var(--cream-text);
+  }
+
+  /* ---------- CUP + POUR (signature element) ---------- */
+  .cup-wrap{ display:flex; justify-content:center; }
+  #pourStream{
+    stroke-dasharray:140;
+    stroke-dashoffset:140;
+    animation:pour 1.8s ease-in forwards 0.6s;
+  }
+  #cupFill{
+    transform-origin:150px 260px;
+    transform:scaleY(0);
+    animation:fill 1.2s ease-out forwards 2.1s;
+  }
+  #steam1, #steam2, #steam3{
+    opacity:0;
+    animation:steam 3s ease-in-out infinite;
+  }
+  #steam2{ animation-delay:0.6s; }
+  #steam3{ animation-delay:1.2s; }
+
+  @keyframes pour{ to{ stroke-dashoffset:0; } }
+  @keyframes fill{ to{ transform:scaleY(1); } }
+  @keyframes steam{
+    0%{ opacity:0; transform:translateY(0) scaleX(1); }
+    30%{ opacity:0.5; }
+    100%{ opacity:0; transform:translateY(-38px) scaleX(1.4); }
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding:6rem 0; }
+  .section-title{
+    font-size:clamp(2.1rem, 4vw, 3rem);
+    margin-bottom:0.6rem;
+  }
+  .section-sub{
+    color:var(--ink);
+    opacity:0.65;
+    max-width:34rem;
+    margin-bottom:3rem;
+  }
+
+  /* ---------- MENU ---------- */
+  .menu{ background:var(--parchment); }
+  .menu-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:1.1rem 0;
+    border-bottom:1px dotted rgba(58,42,32,0.25);
+  }
+  .menu-item-name{
+    font-family:'Fraunces', serif;
+    font-size:1.3rem;
+  }
+  .menu-item-desc{
+    display:block;
+    font-size:0.88rem;
+    opacity:0.6;
+    margin-top:0.2rem;
+    font-family:'Work Sans', sans-serif;
+  }
+  .menu-item-price{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--clay);
+    white-space:nowrap;
+    padding-left:1rem;
+  }
+
+  /* ---------- ORIGIN STRIP ---------- */
+  .origins{ background:var(--espresso-deep); color:var(--cream-text); }
+  .origin-card{
+    padding:1.8rem;
+    border-radius:6px;
+    background:rgba(242,230,216,0.04);
+    border:1px solid rgba(242,230,216,0.08);
+    height:100%;
+    transition:border-color .25s, transform .25s;
+  }
+  .origin-card:hover{
+    border-color:rgba(199,154,62,0.5);
+    transform:translateY(-4px);
+  }
+  .origin-country{
+    color:var(--gold);
+    font-size:0.75rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    margin-bottom:0.5rem;
+  }
+  .origin-name{
+    font-family:'Fraunces', serif;
+    font-size:1.6rem;
+    margin-bottom:0.7rem;
+  }
+  .origin-note{
+    color:var(--smoke);
+    font-size:0.92rem;
+  }
+
+  /* ---------- LATTE ART SIGNATURE BAND ---------- */
+  .art-band{
+    background:var(--teal);
+    color:var(--cream-text);
+    padding:5rem 0;
+  }
+  .art-band .display{ font-size:clamp(1.8rem, 3.6vw, 2.6rem); }
+  .rosetta{ opacity:0.9; }
+
+  /* ---------- VISIT ---------- */
+  .visit{ background:var(--parchment); }
+  .hours-row{
+    display:flex;
+    justify-content:space-between;
+    padding:0.55rem 0;
+    border-bottom:1px solid rgba(58,42,32,0.12);
+  }
+  .hours-row span:first-child{ opacity:0.6; }
+  .hours-row span:last-child{ font-family:'IBM Plex Mono', monospace; }
+
+  .form-control-warm{
+    background:rgba(58,42,32,0.03);
+    border:1px solid rgba(58,42,32,0.2);
+    color:var(--ink);
+    border-radius:2px;
+  }
+  .form-control-warm:focus{
+    background:#fff;
+    border-color:var(--teal);
+    box-shadow:0 0 0 0.2rem rgba(31,92,82,0.12);
+    color:var(--ink);
+  }
+  .form-control-warm::placeholder{ color:rgba(58,42,32,0.4); }
+
+  footer{
+    background:var(--espresso-deep);
+    color:var(--smoke);
+    padding:2.5rem 0;
+    font-size:0.85rem;
+  }
+  footer a{ color:var(--gold); }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    #pourStream, #cupFill, #steam1, #steam2, #steam3{ animation:none; opacity:1; stroke-dashoffset:0; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar navbar-expand-md fixed-top py-3">
+  <div class="container">
+    <a class="navbar-brand" href="#top">Lucine <span>Coffee</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" style="border-color:rgba(242,230,216,0.3)">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="nav">
+      <a class="nav-link" href="#menu">Menu</a>
+      <a class="nav-link" href="#origins">Origins</a>
+      <a class="nav-link" href="#visit">Visit</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="top"></div>
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <div class="eyebrow">Neighborhood coffeehouse</div>
+        <h1 class="display">Beautifully brewed,<br><span class="display-italic">one cup at a time.</span></h1>
+        <p class="lead-copy">A quiet corner for slow mornings — pour-overs made to order, pastries baked before sunrise, and beans roasted three blocks away.</p>
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="#menu" class="btn btn-gold">View the menu</a>
+          <a href="#visit" class="btn btn-line">Find us</a>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="cup-wrap">
+          <svg width="280" height="300" viewBox="0 0 300 300" role="img" aria-label="Illustration of coffee being poured into a cup">
+            <!-- pour stream -->
+            <line id="pourStream" x1="150" y1="20" x2="150" y2="150" stroke="#C79A3E" stroke-width="4" stroke-linecap="round"/>
+            <!-- steam -->
+            <path id="steam1" d="M120 90 Q110 75 120 62" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round"/>
+            <path id="steam2" d="M150 85 Q140 68 150 55" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round"/>
+            <path id="steam3" d="M180 90 Q170 75 180 62" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round"/>
+            <!-- saucer -->
+            <ellipse cx="150" cy="272" rx="95" ry="14" fill="#1E120C"/>
+            <!-- cup body -->
+            <path d="M75 150 L225 150 L212 258 Q212 272 197 272 L103 272 Q88 272 88 258 Z" fill="#3E2B20"/>
+            <!-- coffee fill (clipped) -->
+            <clipPath id="cupClip">
+              <path d="M79 155 L221 155 L209 255 Q209 266 197 266 L103 266 Q91 266 91 255 Z"/>
+            </clipPath>
+            <g clip-path="url(#cupClip)">
+              <rect id="cupFill" x="79" y="155" width="142" height="115" fill="#6B3A22"/>
+            </g>
+            <!-- latte art swirl on top -->
+            <ellipse cx="150" cy="160" rx="70" ry="16" fill="#C79A3E" opacity="0.85"/>
+            <path d="M120 158 Q150 148 180 158 Q150 168 120 158 Z" fill="#F2E6D8" opacity="0.9"/>
+            <!-- handle -->
+            <path d="M225 175 Q258 178 255 205 Q252 228 222 224" fill="none" stroke="#3E2B20" stroke-width="10" stroke-linecap="round"/>
+          </svg>
+        </div> 
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="section-title display">This Morning's Menu</div>
+    <p class="section-sub">Simple drinks, made carefully. Everything can be made dairy-free.</p>
+
+    <div class="row g-5">
+      <div class="col-md-6">
+        <h6 class="mono text-uppercase mb-3" style="color:var(--clay); letter-spacing:0.1em; font-size:0.8rem;">Espresso</h6>
+
+        <div class="menu-item">
+          <div><span class="menu-item-name">Espresso</span><span class="menu-item-desc">Double shot, served neat</span></div>
+          <div class="menu-item-price">$3.50</div>
+        </div>
+        <div class="menu-item">
+          <div><span class="menu-item-name">Cortado</span><span class="menu-item-desc">Equal parts espresso and warm milk</span></div>
+          <div class="menu-item-price">$4.25</div>
+        </div>
+        <div class="menu-item">
+          <div><span class="menu-item-name">Flat White</span><span class="menu-item-desc">Silky microfoam, double ristretto</span></div>
+          <div class="menu-item-price">$4.75</div>
+        </div>
+        <div class="menu-item">
+          <div><span class="menu-item-name">Honey Oat Latte</span><span class="menu-item-desc">House oat milk, wildflower honey</span></div>
+          <div class="menu-item-price">$5.25</div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <h6 class="mono text-uppercase mb-3" style="color:var(--teal); letter-spacing:0.1em; font-size:0.8rem;">Pour-Over</h6>
+
+        <div class="menu-item">
+          <div><span class="menu-item-name">Ethiopia Uraga</span><span class="menu-item-desc">Bergamot, jasmine, black tea finish</span></div>
+          <div class="menu-item-price">$5.50</div>
+        </div>
+        <div class="menu-item">
+          <div><span class="menu-item-name">Colombia Pitalito</span><span class="menu-item-desc">Red apple, brown sugar, cocoa</span></div>
+          <div class="menu-item-price">$5.50</div>
+        </div>
+        <div class="menu-item">
+          <div><span class="menu-item-name">Guatemala Antigua</span><span class="menu-item-desc">Dried cherry, walnut, gentle smoke</span></div>
+          <div class="menu-item-price">$5.50</div>
+        </div>
+        <div class="menu-item">
+          <div><span class="menu-item-name">Cold Brew</span><span class="menu-item-desc">Steeped 18 hours, served over ice</span></div>
+          <div class="menu-item-price">$4.75</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LATTE ART BAND -->
+<section class="art-band">
+  <div class="container text-center">
+    <svg class="rosetta mb-3" width="70" height="70" viewBox="0 0 70 70" role="img" aria-label="Rosetta latte art icon">
+      <circle cx="35" cy="35" r="33" fill="none" stroke="#F2E6D8" stroke-width="1.5" opacity="0.4"/>
+      <path d="M35 55 C35 45 20 40 20 28 C20 20 28 15 35 22 C42 15 50 20 50 28 C50 40 35 45 35 55 Z" fill="#F2E6D8" opacity="0.9"/>
+    </svg>
+    <p class="display mb-0">"The best cup isn't the fanciest one —<br>it's the one poured with attention."</p>
+  </div>
+</section>
+
+<!-- ORIGINS -->
+<section class="origins" id="origins">
+  <div class="container">
+    <div class="section-title display">Where the Beans Come From</div>
+    <p class="section-sub" style="color:var(--smoke); opacity:1;">We roast three lots at a time, rotated as each harvest arrives.</p>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="origin-card">
+          <div class="origin-country">Ethiopia · Guji Zone</div>
+          <div class="origin-name">Uraga</div>
+          <p class="origin-note">Washed, heirloom varietal, grown above 1,950m. Bright and floral.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="origin-card">
+          <div class="origin-country">Colombia · Huila</div>
+          <div class="origin-name">Pitalito</div>
+          <p class="origin-note">Honey-processed Castillo, grown above 1,700m. Sweet and rounded.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="origin-card">
+          <div class="origin-country">Guatemala · Antigua</div>
+          <div class="origin-name">El Injerto</div>
+          <p class="origin-note">Natural-processed Bourbon, grown above 1,500m. Fruited and deep.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="visit" id="visit">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-5">
+        <div class="section-title display">Find Us</div>
+        <p class="section-sub mb-4">One counter, six tables, and a window seat worth fighting for.</p>
+
+        <div class="hours-row"><span>Mon – Fri</span><span>7:00 – 17:00</span></div>
+        <div class="hours-row"><span>Saturday</span><span>8:00 – 15:00</span></div>
+        <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+
+        <p class="mt-4 mb-1" style="opacity:0.65">14 Maple Lane, Old Town</p>
+        <p style="opacity:0.65">hello@lucinecoffee.example</p>
+      </div>
+      <div class="col-lg-7">
+        <form>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label mono" style="font-size:0.75rem; letter-spacing:0.1em; opacity:0.6">NAME</label>
+              <input type="text" class="form-control form-control-warm" placeholder="Your name">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label mono" style="font-size:0.75rem; letter-spacing:0.1em; opacity:0.6">EMAIL</label>
+              <input type="email" class="form-control form-control-warm" placeholder="you@example.com">
+            </div>
+            <div class="col-12">
+              <label class="form-label mono" style="font-size:0.75rem; letter-spacing:0.1em; opacity:0.6">MESSAGE</label>
+              <textarea class="form-control form-control-warm" rows="4" placeholder="Ask about catering, events, or just say hello"></textarea>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-gold">Send message</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container d-flex justify-content-between flex-wrap gap-2">
+    <span>© 2026 Lucine Coffee</span>
+    <span class="mono">OPEN EVERY MORNING · CLOSED SUNDAY</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
