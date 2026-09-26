@@ -63,4 +63,4 @@ jobs:
         with:
           app-name: 'FlashApp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_952E4ED8A8034AB284C32B010F3E1A52 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_952E4ED8A8034AB284C32B010F3E1A52 }} 
