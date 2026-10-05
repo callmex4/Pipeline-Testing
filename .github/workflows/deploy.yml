@@ -21,6 +21,6 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./chai_app
           push: true
           tags: ${{ secrets.ACR_LOGIN_SERVER }}/chai-site:latest
