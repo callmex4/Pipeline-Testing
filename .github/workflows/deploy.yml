@@ -1,38 +1,21 @@
-name: Build and Push to ACR
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Log in to ACR
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ secrets.ACR_LOGIN_SERVER }}
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
-
-      - name: Build and push image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./chai_app
-          push: true
-          tags: ${{ secrets.ACR_LOGIN_SERVER }}/chai-site:latest
-
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
+      - name: Debug Check Secrets
+        run: |
+          echo "VM_HOST length: ${#VM_HOST}"
+          echo "VM_USERNAME length: ${#VM_USERNAME}"
+          echo "VM_SSH_KEY length: ${#VM_SSH_KEY}"
+        env:
+          VM_HOST: ${{ secrets.VM_HOST }}
+          VM_USERNAME: ${{ secrets.VM_USERNAME }}
+          VM_SSH_KEY: ${{ secrets.VM_SSH_KEY }}
+
       - name: Deploy to VM
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.VM_HOST }} 
+          host: ${{ secrets.VM_HOST }}
           username: ${{ secrets.VM_USERNAME }}
           key: ${{ secrets.VM_SSH_KEY }}
           script: |
