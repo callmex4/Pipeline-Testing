@@ -1,0 +1,26 @@
+deploy:
+  needs: build-and-push
+  runs-on: ubuntu-latest
+  steps:
+    - name: Debug Check Secrets
+      run: |
+        echo "VM_HOST length: ${#VM_HOST}"
+        echo "VM_USERNAME length: ${#VM_USERNAME}"
+        echo "VM_SSH_KEY length: ${#VM_SSH_KEY}"
+      env:
+        VM_HOST: ${{ secrets.VM_HOST }}
+        VM_USERNAME: ${{ secrets.VM_USERNAME }}
+        VM_SSH_KEY: ${{ secrets.VM_SSH_KEY }}
+
+    - name: Deploy to VM
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.VM_USERNAME }}
+        key: ${{ secrets.VM_SSH_KEY }}
+        script: |
+          docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
+          docker pull ${{ secrets.ACR_LOGIN_SERVER }}/chai-site:latest
+          docker stop chai-site || true
+          docker rm chai-site || true
+          docker run -d --name chai-site -p 80:80 ${{ secrets.ACR_LOGIN_SERVER }}/chai-site:latest
