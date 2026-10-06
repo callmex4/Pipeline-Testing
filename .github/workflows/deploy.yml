@@ -24,3 +24,20 @@ jobs:
           context: ./chai_app
           push: true
           tags: ${{ secrets.ACR_LOGIN_SERVER }}/chai-site:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VM
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USERNAME }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
+            docker pull ${{ secrets.ACR_LOGIN_SERVER }}/chai-site:latest
+            docker stop chai-site || true
+            docker rm chai-site || true
+            docker run -d --name chai-site -p 80:80 ${{ secrets.ACR_LOGIN_SERVER }}/chai-site:latest
