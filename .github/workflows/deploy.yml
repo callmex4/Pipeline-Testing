@@ -29,6 +29,11 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
+      - name: Debug Secret
+        run: |
+          echo "HOST=[${{ secrets.VM_HOST }}]"
+          echo "USER=[${{ secrets.VM_USERNAME }}]"
+
       - name: Deploy to VM
         uses: appleboy/ssh-action@v1
         with:
